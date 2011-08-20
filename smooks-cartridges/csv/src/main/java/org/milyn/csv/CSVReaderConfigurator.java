@@ -12,24 +12,25 @@
 
 	See the GNU Lesser General Public License for more details:
 	http://www.gnu.org/licenses/lgpl.txt
-*/
+ */
 package org.milyn.csv;
 
-import org.milyn.ReaderConfigurator;
-import org.milyn.GenericReaderConfigurator;
-import org.milyn.cdr.SmooksResourceConfiguration;
-import org.milyn.cdr.SmooksConfigurationException;
-import org.milyn.assertion.AssertArgument;
-
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.milyn.GenericReaderConfigurator;
+import org.milyn.ReaderConfigurator;
+import org.milyn.assertion.AssertArgument;
+import org.milyn.cdr.SmooksConfigurationException;
+import org.milyn.cdr.SmooksResourceConfiguration;
 
 /**
  * CSV Reader configurator.
  * <p/>
- * Supports programmatic {@link CSVReader} configuration on a {@link org.milyn.Smooks#setReaderConfig(org.milyn.ReaderConfigurator) Smooks} instance.
- *
+ * Supports programmatic {@link CSVReader} configuration on a
+ * {@link org.milyn.Smooks#setReaderConfig(org.milyn.ReaderConfigurator) Smooks}
+ * instance.
+ * 
  * @author <a href="mailto:tom.fennelly@jboss.com">tom.fennelly@jboss.com</a>
  */
 public class CSVReaderConfigurator implements ReaderConfigurator {
@@ -38,6 +39,7 @@ public class CSVReaderConfigurator implements ReaderConfigurator {
     private char separatorChar = ',';
     private char quoteChar = '"';
     private int skipLineCount = 0;
+    private int headLine = 0;
     private Charset encoding = Charset.forName("UTF-8");
     private String rootElementName = "csv-set";
     private String recordElementName = "csv-record";
@@ -66,6 +68,12 @@ public class CSVReaderConfigurator implements ReaderConfigurator {
     public CSVReaderConfigurator setSkipLineCount(int skipLineCount) {
         AssertArgument.isNotNull(skipLineCount, "skipLineCount");
         this.skipLineCount = skipLineCount;
+        return this;
+    }
+
+    public CSVReaderConfigurator setHeadeLine(int headLine) {
+        AssertArgument.isNotNull(headLine, "headLine");
+        this.headLine = headLine;
         return this;
     }
 
@@ -115,21 +123,23 @@ public class CSVReaderConfigurator implements ReaderConfigurator {
         configurator.getParameters().setProperty("separator", Character.toString(separatorChar));
         configurator.getParameters().setProperty("quote-char", Character.toString(quoteChar));
         configurator.getParameters().setProperty("skip-line-count", Integer.toString(skipLineCount));
+        configurator.getParameters().setProperty("head-line", Integer.toString(headLine));
         configurator.getParameters().setProperty("encoding", encoding.name());
         configurator.getParameters().setProperty("rootElementName", rootElementName);
         configurator.getParameters().setProperty("recordElementName", recordElementName);
         configurator.getParameters().setProperty("indent", Boolean.toString(indent));
         configurator.getParameters().setProperty("strict", Boolean.toString(strict));
 
-        if(binding != null) {
+        if (binding != null) {
             configurator.getParameters().setProperty("bindBeanId", binding.getBeanId());
             configurator.getParameters().setProperty("bindBeanClass", binding.getBeanClass().getName());
             configurator.getParameters().setProperty("bindingType", binding.getBindingType().toString());
-            if(binding.getBindingType() == CSVBindingType.MAP) {
-                if(binding.getKeyField() == null) {
-                    throw new SmooksConfigurationException("CSV 'MAP' Binding must specify a 'keyField' property on the binding configuration.");
+            if (binding.getBindingType() == CSVBindingType.MAP) {
+                if (binding.getKeyField() == null) {
+                    throw new SmooksConfigurationException(
+                            "CSV 'MAP' Binding must specify a 'keyField' property on the binding configuration.");
                 }
-                configurator.getParameters().setProperty("bindMapKeyField", binding.getKeyField());                
+                configurator.getParameters().setProperty("bindMapKeyField", binding.getKeyField());
             }
         }
 

@@ -61,6 +61,13 @@
     					</xs:documentation>
     				</xs:annotation>
     			</xs:attribute>
+    			<xs:attribute name="headLine" type="xs:integer" use="optional" default="0">
+    				<xs:annotation>
+    					<xs:documentation xml:lang="en">
+    						Number of the line which helds the column names. Default of 1.
+    					</xs:documentation>
+    				</xs:annotation>
+    			</xs:attribute>
     			<xs:attribute name="encoding" type="xs:string" use="optional" default="UTF-8">
     				<xs:annotation>
     					<xs:documentation xml:lang="en">
