@@ -5,13 +5,13 @@
     <groupId>org.milyn</groupId>
     <artifactId>milyn</artifactId>
     <packaging>pom</packaging>
-    <version>1.4</version> <!-- base pom version - do not remove this comment -->
+    <version>1.4.1-INDUSTRIAL</version> <!-- base pom version - do not remove this comment -->
     <name>Milyn (Base POM)</name>
     <url>http://milyn.codehaus.org</url>
 
     <properties>
-        <milyn.smooks.core.version.base>1.4</milyn.smooks.core.version.base> <!-- ## Smooks Version ## -->
-        <milyn.smooks.core.version>${milyn.smooks.core.version.base}</milyn.smooks.core.version> <!-- ## Smooks Version ## --> <!-- add/remove "-SNAPSHOT" here as necessary -->
+        <milyn.smooks.core.version.base>1.4.1</milyn.smooks.core.version.base> <!-- ## Smooks Version ## -->
+        <milyn.smooks.core.version>${milyn.smooks.core.version.base}-INDUSTRIAL</milyn.smooks.core.version> <!-- ## Smooks Version ## --> <!-- add/remove "-SNAPSHOT" here as necessary -->
 
         <milyn.commons.version.base>${milyn.smooks.core.version.base}</milyn.commons.version.base>
         <milyn.commons.version>${milyn.smooks.core.version}</milyn.commons.version>
@@ -208,7 +208,7 @@
         </testResources>
     </build>
 
-    <distributionManagement>
+<!--    <distributionManagement>
         <repository>
             <id>codehaus.maven.repo</id>
             <name>Milyn Central Maven2 Repository</name>
@@ -224,7 +224,7 @@
             <url>dav:https://dav.codehaus.org/xfire/</url>
         </site>
     </distributionManagement>
-
+-->
     <reporting>
         <plugins>
             <plugin>
@@ -286,4 +286,13 @@
             <url>http://repository.codehaus.org</url>
         </pluginRepository>
     </pluginRepositories>
+    
+    <!-- INDUSTRIAL REPO -->
+    <distributionManagement>
+	<repository>
+	    <id>other</id>
+	    <name>Other Project Repository</name>
+	    <url>http://maven.openengsb.org/nexus/content/repositories/other/</url>
+	</repository>
+   </distributionManagement>
 </project>

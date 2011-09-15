@@ -5,7 +5,7 @@
     <groupId>org.milyn</groupId>
     <artifactId>milyn-edi</artifactId>
     <packaging>pom</packaging>
-    <version>1.4</version> <!-- base pom version - do not remove this comment -->
+    <version>1.4.1-INDUSTRIAL</version> <!-- base pom version - do not remove this comment -->
     <name>Milyn EDI</name>
     <url>http://milyn.codehaus.org</url>
 
@@ -27,7 +27,7 @@
         </repository>
     </repositories>
 
-    <distributionManagement>
+<!--    <distributionManagement>
         <repository>
             <id>codehaus.maven.repo</id>
             <name>Milyn Central Maven2 Repository</name>
@@ -43,5 +43,5 @@
             <url>dav:https://dav.codehaus.org/xfire/</url>
         </site>
     </distributionManagement>
-
+-->
 </project>
