@@ -38,6 +38,12 @@
         <param name="mapTo">skip-line-count</param>
     </resource-config>
 
+     <resource-config selector="reader">
+        <resource>org.milyn.cdr.extension.MapToResourceConfigFromAttribute</resource>
+        <param name="attribute">headLine</param>
+        <param name="mapTo">head-line</param>
+    </resource-config>
+    
     <resource-config selector="reader">
         <resource>org.milyn.cdr.extension.MapToResourceConfigFromAttribute</resource>
         <param name="attribute">encoding</param>

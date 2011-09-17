@@ -407,8 +407,9 @@ public class CSVReader implements SmooksXMLReader, VisitorAppender {
                         continue;
                     } else if (field.useFieldname()) {
                         int toSkip = parseFieldDirective(SpecialFieldType.USE_FIELDNAME, fieldName);
-                        if (toSkip == Integer.MAX_VALUE)
-                            break;
+                        if (toSkip == Integer.MAX_VALUE) {
+                            toSkip = csvRecord.length - recordIt;
+                        }
 
                         // Check if the headline has been defined
                         if (headLineNames == null) {

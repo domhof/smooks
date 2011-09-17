@@ -467,4 +467,15 @@ public class CSVReaderTest extends TestCase {
                 "<csv-set><csv-record number=\"2\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address></csv-record><csv-record number=\"3\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address></csv-record></csv-set>",
                 result);
     }
+
+    public void test_20() throws SmooksException, IOException, SAXException {
+        Smooks smooks = new Smooks(getClass().getResourceAsStream("smooks-extended-config-14.xml"));
+
+        ExecutionContext context = smooks.createExecutionContext();
+        String result = SmooksUtil.filterAndSerialize(context, getClass().getResourceAsStream("input-message-14.csv"),
+                smooks);
+        assertEquals(
+                "<csv-set><csv-record number=\"2\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address></csv-record><csv-record number=\"3\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address><Age>32</Age></csv-record></csv-set>",
+                result);
+    }
 }
