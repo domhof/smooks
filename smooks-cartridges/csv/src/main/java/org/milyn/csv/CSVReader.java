@@ -373,6 +373,20 @@ public class CSVReader implements SmooksXMLReader, VisitorAppender {
 
                 if (headLine != 0 && headLine == lineNumber) {
                     headLineNames = csvRecord;
+                    for (int i = 0; i < headLineNames.length; i++) {
+                        String cleaned = headLineNames[i];
+                        cleaned = cleaned.trim();
+                        cleaned = cleaned.replaceAll(Character.toString(quoteChar), "");
+                        cleaned = cleaned.replaceAll("\"", "");
+                        cleaned = cleaned.replaceAll("", "");
+                        cleaned = cleaned.replaceAll(" ", "");
+                        cleaned = cleaned.replaceAll("\\(", "");
+                        cleaned = cleaned.replaceAll("\\)", "");
+                        if (cleaned.equals("")) {
+                            cleaned = "field_" + i;
+                        }
+                        headLineNames[i] = cleaned;
+                    }
                     continue;
                 }
 
