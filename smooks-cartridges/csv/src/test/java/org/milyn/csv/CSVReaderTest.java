@@ -464,7 +464,7 @@ public class CSVReaderTest extends TestCase {
         String result = SmooksUtil.filterAndSerialize(context, getClass().getResourceAsStream("input-message-14.csv"),
                 smooks);
         assertEquals(
-                "<csv-set><csv-record number=\"2\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address></csv-record><csv-record number=\"3\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address></csv-record></csv-set>",
+                "<csv-set><csv-record number=\"1\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address></csv-record><csv-record number=\"2\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address></csv-record></csv-set>",
                 result);
     }
 
@@ -475,7 +475,7 @@ public class CSVReaderTest extends TestCase {
         String result = SmooksUtil.filterAndSerialize(context, getClass().getResourceAsStream("input-message-14.csv"),
                 smooks);
         assertEquals(
-                "<csv-set><csv-record number=\"2\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address><Age>32</Age></csv-record><csv-record number=\"3\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address><Age>40</Age></csv-record></csv-set>",
+                "<csv-set><csv-record number=\"1\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address><Age>32</Age></csv-record><csv-record number=\"2\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address><Age>40</Age></csv-record></csv-set>",
                 result);
     }
 
@@ -486,7 +486,7 @@ public class CSVReaderTest extends TestCase {
         String result = SmooksUtil.filterAndSerialize(context,
                 getClass().getResourceAsStream("input-message-15-INDUSTRIAL.csv"), smooks);
         assertEquals(
-                "<csv-set><csv-record number=\"2\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address><Age>32</Age></csv-record><csv-record number=\"3\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address><Age>40</Age></csv-record></csv-set>",
+                "<csv-set><csv-record number=\"1\"><Firstname>Tom</Firstname><Lastname>Collins</Lastname><Address>Victoria Ave</Address><Age>32</Age></csv-record><csv-record number=\"2\"><Firstname>Fred</Firstname><Lastname>Cook</Lastname><Address>Mainstreet 12</Address><Age>40</Age></csv-record></csv-set>",
                 result);
     }
 }

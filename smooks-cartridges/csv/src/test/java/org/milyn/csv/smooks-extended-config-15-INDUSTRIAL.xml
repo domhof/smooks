@@ -5,6 +5,6 @@
     Configure the CSV  to parse the message into a stream of SAX events.
     -->
 <csv:reader
-		fields="$usename$+" headLine="1" skipLines="1" strict="false" />
+		fields="$usename$+" headLine="2" skipLines="1" strict="false" />
 
 </smooks-resource-list>

@@ -346,32 +346,30 @@ public class CSVReader implements SmooksXMLReader, VisitorAppender {
             }
 
             // Create the CSV line reader...
-            csvLineReader = new au.com.bytecode.opencsv.CSVReader(csvStreamReader, separator, quoteChar, skipLines);
-
-            if (validateHeader) {
-                validateHeader(csvLineReader);
-            }
+            csvLineReader = new au.com.bytecode.opencsv.CSVReader(csvStreamReader, separator, quoteChar);
 
             // Start the document and add the root "csv-set" element...
             contentHandler.startDocument();
             contentHandler.startElement(XMLConstants.NULL_NS_URI, rootElementName, StringUtils.EMPTY, EMPTY_ATTRIBS);
 
             // Output each of the CVS line entries...
-            int lineNumber = 0;
             int expectedCount = getExpectedColumnsCount();
 
-            while ((csvRecord = csvLineReader.readNext()) != null) {
-                lineNumber++; // First line is line "1"
+            if (skipLines < headLine) {
+                skipLines = headLine;
+            }
 
-                if (csvRecord.length < expectedCount && strict) {
-                    logger.warn("[CORRUPT-CSV] CSV line #" + lineNumber + " invalid [" + Arrays.asList(csvRecord)
-                            + "].  The line should contain number of items at least as in CSV config file "
-                            + csvFields.length + " fields [" + csvFields + "], but contains " + csvRecord.length
-                            + " fields.  Ignoring!!");
-                    continue;
+            for (int lineNumber = 1; lineNumber <= skipLines; lineNumber++) {
+                csvRecord = csvLineReader.readNext();
+                if (csvRecord == null) {
+                    break;
                 }
 
                 if (headLine != 0 && headLine == lineNumber) {
+                    if (validateHeader) {
+                        validateHeader(csvRecord);
+                    }
+
                     headLineNames = csvRecord;
                     for (int i = 0; i < headLineNames.length; i++) {
                         String cleaned = headLineNames[i];
@@ -387,6 +385,19 @@ public class CSVReader implements SmooksXMLReader, VisitorAppender {
                         }
                         headLineNames[i] = cleaned;
                     }
+                    continue;
+                }
+            }
+
+            int lineNumber = 0;
+            while ((csvRecord = csvLineReader.readNext()) != null) {
+                lineNumber++;
+
+                if (csvRecord.length < expectedCount && strict) {
+                    logger.warn("[CORRUPT-CSV] CSV line #" + lineNumber + " invalid [" + Arrays.asList(csvRecord)
+                            + "].  The line should contain number of items at least as in CSV config file "
+                            + csvFields.length + " fields [" + csvFields + "], but contains " + csvRecord.length
+                            + " fields.  Ignoring!!");
                     continue;
                 }
 
@@ -506,8 +517,7 @@ public class CSVReader implements SmooksXMLReader, VisitorAppender {
         }
     }
 
-    private void validateHeader(final au.com.bytecode.opencsv.CSVReader reader) throws IOException {
-        String[] headers = reader.readNext();
+    private void validateHeader(final String[] headers) throws IOException {
         if (headers == null) {
             throw new CSVHeaderValidationException(getFieldNames(fields));
         }
