@@ -290,9 +290,9 @@
     <!-- INDUSTRIAL REPO -->
     <distributionManagement>
 	<repository>
-	    <id>other</id>
-	    <name>Other Project Repository</name>
-	    <url>http://maven.openengsb.org/nexus/content/repositories/other/</url>
+	    <id>cdl-ind.ifs.tuwien.ac.at-libs-release</id>
+	    <name>libs-release</name>
+	    <url>http://cdl-ind.ifs.tuwien.ac.at/artifactory/libs-release</url>
 	</repository>
    </distributionManagement>
 </project>
